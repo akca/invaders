@@ -11,11 +11,14 @@ import java.io.Serializable;
 public class Player implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PLAYER_ID")
+    private long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MATCH_ID")
     private Match match;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -27,6 +30,14 @@ public class Player implements Serializable {
         this.match = match;
         this.user = user;
         this.score = 0L;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Match getMatch() {
