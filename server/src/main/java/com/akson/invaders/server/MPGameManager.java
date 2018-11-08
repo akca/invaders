@@ -23,8 +23,8 @@ public class MPGameManager extends Thread {
     public MPGameManager() {
         try {
             socket = new DatagramSocket();
-            setName("MPGameManager Server" + socket.getLocalPort());
-            logger.info("MPGameManager Server started on port: " + socket.getLocalPort());
+            setName("MPGameManager Thread " + socket.getLocalPort());
+            logger.info("MPGameManager started on port: " + socket.getLocalPort());
 
         } catch (SocketException e) {
             logger.error("Error when creating the MPGameManager DatagramSocket", e);

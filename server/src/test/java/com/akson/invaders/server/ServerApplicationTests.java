@@ -23,13 +23,16 @@ import static org.junit.Assert.assertEquals;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServerApplicationTests {
 
+    private Logger logger = LoggerFactory.getLogger(ServerApplicationTests.class);
+
     private final static String username1 = "testuser1";
     private final static String password1 = "password";
     private final static String username2 = "testuser2";
     private final static String password2 = "password";
+
     private static HttpEntity<MultiValueMap<String, String>> loginRequest1;
     private static HttpEntity<MultiValueMap<String, String>> loginRequest2;
-    private Logger logger = LoggerFactory.getLogger(ServerApplicationTests.class);
+
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -61,6 +64,8 @@ public class ServerApplicationTests {
     @Test
     public void stage2_register() {
 
+        /* register a user */
+
         User user = new User();
 
         user.setUsername(username1);
@@ -73,6 +78,9 @@ public class ServerApplicationTests {
         assertEquals(1, user.getId());
 
         logger.info(user.toString());
+
+
+        /* register another user */
 
         user = new User();
 

@@ -47,6 +47,30 @@ public class Match {
         this.date = OffsetDateTime.now();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public MatchState getState() {
+        return state;
+    }
+
+    public void setState(MatchState state) {
+        this.state = state;
+    }
+
+    public OffsetDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(OffsetDateTime date) {
+        this.date = date;
+    }
+
     public User getUser1() {
         return user1;
     }
@@ -61,30 +85,6 @@ public class Match {
 
     public void setUser2(User user2) {
         this.user2 = user2;
-    }
-
-    public OffsetDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(OffsetDateTime date) {
-        this.date = date;
-    }
-
-    public MatchState getState() {
-        return state;
-    }
-
-    public void setState(MatchState state) {
-        this.state = state;
-    }
-
-    public int getServerPort() {
-        return serverPort;
-    }
-
-    public void setServerPort(int serverPort) {
-        this.serverPort = serverPort;
     }
 
     public long getScore1() {
@@ -102,4 +102,13 @@ public class Match {
     public void setScore2(long score2) {
         this.score2 = score2;
     }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
+
 }
