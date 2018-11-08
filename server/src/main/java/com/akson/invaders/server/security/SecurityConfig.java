@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserPrincipalService userDetailsService;
+    private GameUserDetailsService userDetailsService;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
