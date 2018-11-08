@@ -1,7 +1,6 @@
 package com.akson.invaders.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -17,7 +16,9 @@ public class User {
     @Column(name = "name", length = 50, nullable = false, unique = true)
     private String username;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    // TODO: find a proper way to hide password from REST output
+    // TODO: this line makes login impossible
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 

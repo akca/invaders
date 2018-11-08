@@ -110,14 +110,14 @@ public class ServerApplicationTests {
 
         logger.info("Using first user:");
 
-        ResponseEntity<String> response1 = restTemplate.exchange("/users", HttpMethod.GET, requestWithCookieHeaders1, String.class);
+        ResponseEntity<String> response1 = restTemplate.exchange("/user", HttpMethod.GET, requestWithCookieHeaders1, String.class);
 
         logger.info(response1.toString());
         assertEquals(HttpStatus.OK, response1.getStatusCode());
 
         logger.info("Using second user:");
 
-        ResponseEntity<String> response2 = restTemplate.exchange("/users", HttpMethod.GET, requestWithCookieHeaders2, String.class);
+        ResponseEntity<String> response2 = restTemplate.exchange("/user", HttpMethod.GET, requestWithCookieHeaders2, String.class);
 
         logger.info(response2.toString());
         assertEquals(HttpStatus.OK, response2.getStatusCode());
