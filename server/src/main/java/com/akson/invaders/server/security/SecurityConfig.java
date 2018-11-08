@@ -56,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .permitAll()
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .httpBasic();
     }
 
     @Bean
