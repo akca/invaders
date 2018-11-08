@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
+/**
+ * Configuration class that is required for setting up the Spring Security.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -42,22 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
-
                 .and()
-
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/admin").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-
                 .and()
-
                 .formLogin()
                 .successHandler(successHandler)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .permitAll()
-
                 .and()
                 .csrf().disable();
     }

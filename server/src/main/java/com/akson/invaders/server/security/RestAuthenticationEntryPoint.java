@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Send HTTP 401 Unauthorized to the requests that is not authenticated.
+ * Required for sending HTTP 401 Unauthorized to the requests that is not authenticated.
  */
 @Component
 public final class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {

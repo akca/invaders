@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class that is responsible for defining a data source for user credentials.
+ * Needed for Spring Security DaoAuthenticationProvider.
+ */
 @Service
 public class UserPrincipalService implements UserDetailsService {
 

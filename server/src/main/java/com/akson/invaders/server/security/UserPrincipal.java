@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Provides core user information to Spring Security.
+ */
 public class UserPrincipal implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
     private final User user;
 
-    public UserPrincipal(User user) {
+    UserPrincipal(User user) {
         this.user = user;
     }
 

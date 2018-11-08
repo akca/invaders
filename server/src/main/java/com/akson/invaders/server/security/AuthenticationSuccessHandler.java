@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * For a RESTful web service, the desired response for a successful authentication should be 200 OK.
+ * For a RESTful web service, the desired response for a successful authentication should be 200 OK. This handler
+ * is used for that purpose and is a modified version of
+ * {@link org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler}.
  * <p>
  * https://www.baeldung.com/securing-a-restful-web-service-with-spring-security
  */
