@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * Needed for Spring Security DaoAuthenticationProvider.
  */
 @Service
-public class UserPrincipalService implements UserDetailsService {
+public class GameUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -27,6 +27,6 @@ public class UserPrincipalService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new UserPrincipal(user);
+        return new GameUserDetails(user);
     }
 }
