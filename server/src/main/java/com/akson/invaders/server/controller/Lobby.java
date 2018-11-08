@@ -2,6 +2,7 @@ package com.akson.invaders.server.controller;
 
 import com.akson.invaders.server.MPGameManager;
 import com.akson.invaders.server.entity.Match;
+import com.akson.invaders.server.entity.Player;
 import com.akson.invaders.server.entity.User;
 import com.akson.invaders.server.entity.attr.MatchState;
 import com.akson.invaders.server.repository.MatchRepository;
@@ -50,8 +51,7 @@ public class Lobby {
 
         // if this user has a active match, return it
         for (Match m : matches) {
-            if (m.getUser1().getUsername().equals(loginUsername)
-                    || m.getUser2().getUsername().equals(loginUsername)) {
+            if (m.findUser(loginUsername) != null) {
                 return m;
             }
         }
@@ -77,7 +77,14 @@ public class Lobby {
             MPGameManager server = new MPGameManager();
             server.start();
 
-            Match match = new Match(user2, loginUser, server.getPort(), MatchState.LOBBY);
+            Match match = new Match(MatchState.LOBBY, server.getPort());
+
+            Player p1 = new Player(match, user2);
+            Player p2 = new Player(match, loginUser);
+
+            match.getPlayers().add(p1);
+            match.getPlayers().add(p2);
+
             matchRepository.save(match);
             matches.add(match);
 

@@ -4,7 +4,12 @@ import com.akson.invaders.server.entity.attr.MatchState;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Multiplayer Match entity for keeping game state, player list and more.
+ */
 @Entity
 @Table(name = "MATCHES")
 public class Match {
@@ -20,31 +25,35 @@ public class Match {
     @Column(name = "DATE")
     private OffsetDateTime date;
 
-    @ManyToOne
-    @JoinColumn(name = "USER1_ID")
-    private User user1;
+    @OneToMany(mappedBy = "match")
+    private List<Player> players;
 
-    @ManyToOne
-    @JoinColumn(name = "USER2_ID")
-    private User user2;
-
-    @Column(name = "SCORE1")
-    private long score1;
-
-    @Column(name = "SCORE2")
-    private long score2;
-
+    /* do not persist serverPort since it's unnecessary */
     @Transient
     private int serverPort;
 
-    public Match(User user1, User user2, int serverPort, MatchState state) {
-        this.user1 = user1;
-        this.user2 = user2;
+    public Match(MatchState state, int serverPort) {
+        this.players = new ArrayList<>();
         this.serverPort = serverPort;
         this.state = state;
-        this.score1 = 0;
-        this.score2 = 0;
         this.date = OffsetDateTime.now();
+    }
+
+    /**
+     * Searches given username in the players list of the match.
+     *
+     * @param username username to find
+     * @return User found or null (if not found).
+     */
+    public User findUser(String username) {
+
+        for (Player p : players) {
+            if (p.getUser().getUsername().equals(username)) {
+                return p.getUser();
+            }
+        }
+
+        return null;
     }
 
     public long getId() {
@@ -71,36 +80,12 @@ public class Match {
         this.date = date;
     }
 
-    public User getUser1() {
-        return user1;
+    public List<Player> getPlayers() {
+        return players;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
-    }
-
-    public User getUser2() {
-        return user2;
-    }
-
-    public void setUser2(User user2) {
-        this.user2 = user2;
-    }
-
-    public long getScore1() {
-        return score1;
-    }
-
-    public void setScore1(long score1) {
-        this.score1 = score1;
-    }
-
-    public long getScore2() {
-        return score2;
-    }
-
-    public void setScore2(long score2) {
-        this.score2 = score2;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public int getServerPort() {
