@@ -45,7 +45,7 @@ public class UserController {
     }
 
     /**
-     * Updates user with the given User object using HTTP POST method, if logged-in username is the same with
+     * Updates user with the given User object using HTTP PUT method, if logged-in username is the same with
      * the User object sent to this method.
      *
      * @param user    User object to be persisted
