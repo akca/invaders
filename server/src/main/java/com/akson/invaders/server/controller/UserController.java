@@ -32,11 +32,10 @@ public class UserController {
      * Registers User objects that sent to the given URL using HTTP POST method.
      *
      * @param user    User object to be registered
-     * @param request HttpServletRequest object for fetching logged in user
      * @return persisted User object
      */
     @PostMapping(value = "/register")
-    public User register(@RequestBody User user, HttpServletRequest request) {
+    public User register(@RequestBody User user) {
 
         // TODO: password should be hashed at client side
         user.setPassword(passwordEncoder.encode(user.getPassword()));
