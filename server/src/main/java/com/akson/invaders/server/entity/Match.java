@@ -48,8 +48,11 @@ public class Match {
     public User findUser(String username) {
 
         for (Player p : players) {
-            if (p.getUser().getUsername().equals(username)) {
-                return p.getUser();
+
+            User user = p.getUser();
+
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
 
