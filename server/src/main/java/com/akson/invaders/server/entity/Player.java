@@ -19,6 +19,7 @@ public class Player implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MATCH_ID")
+    @JsonIgnore
     private Match match;
 
     @ManyToOne

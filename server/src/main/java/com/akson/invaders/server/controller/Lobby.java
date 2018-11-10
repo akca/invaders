@@ -6,6 +6,7 @@ import com.akson.invaders.server.entity.Player;
 import com.akson.invaders.server.entity.User;
 import com.akson.invaders.server.entity.attr.MatchState;
 import com.akson.invaders.server.repository.MatchRepository;
+import com.akson.invaders.server.repository.PlayerRepository;
 import com.akson.invaders.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +26,18 @@ public class Lobby {
 
     private final MatchRepository matchRepository;
     private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
     private Map<String, User> lobbyUsers = new LinkedHashMap<>();
     private List<Match> matches = new ArrayList<>();
 
     @Autowired
-    public Lobby(MatchRepository matchRepository, UserRepository userRepository) {
+    public Lobby(MatchRepository matchRepository,
+                 UserRepository userRepository,
+                 PlayerRepository playerRepository) {
         this.matchRepository = matchRepository;
         this.userRepository = userRepository;
+        this.playerRepository = playerRepository;
     }
 
     /**
@@ -79,13 +84,19 @@ public class Lobby {
 
             Match match = new Match(MatchState.LOBBY, server.getPort());
 
+            matchRepository.save(match);
+
             Player p1 = new Player(match, user2);
             Player p2 = new Player(match, loginUser);
+
+            playerRepository.save(p1);
+            playerRepository.save(p2);
 
             match.getPlayers().add(p1);
             match.getPlayers().add(p2);
 
             matchRepository.save(match);
+
             matches.add(match);
 
             return match;
