@@ -24,8 +24,15 @@ public class HighScoreController {
         this.highScoreRepository = highScoreRepository;
     }
 
+    @PostMapping(value = "/highscores")
+    public HighScore addHighScore(@RequestBody HighScore highScore) {
+        return highScoreRepository.save(highScore);
+    }
+
     @GetMapping(value = "/highscores")
     public List<HighScore> getHighestScores() {
         return highScoreRepository.findTop3ByOrderByScoreDesc();
     }
+
+
 }
