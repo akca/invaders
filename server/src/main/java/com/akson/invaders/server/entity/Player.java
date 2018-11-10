@@ -1,5 +1,7 @@
 package com.akson.invaders.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -25,6 +27,10 @@ public class Player implements Serializable {
 
     @Column(name = "SCORE")
     private Long score;
+
+    @JsonIgnore
+    @Transient
+    private String ip;
 
     public Player(Match match, User user) {
         this.match = match;
@@ -62,5 +68,13 @@ public class Player implements Serializable {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

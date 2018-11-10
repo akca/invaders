@@ -1,7 +1,5 @@
 package com.akson.invaders.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -22,28 +20,15 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @JsonIgnore
-    @Transient
-    private String ip;
-
     @Column(name = "POINTS")
     private long points;
 
     public User() {
     }
 
-    public User(String username, String ip) {
-        this.ip = ip;
+    public User(String username) {
         this.username = username;
         this.points = 0;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public String getUsername() {
@@ -84,7 +69,6 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", ip='" + ip + '\'' +
                 ", points=" + points +
                 '}';
     }
