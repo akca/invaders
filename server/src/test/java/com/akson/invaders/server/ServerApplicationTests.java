@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -25,9 +27,9 @@ public class ServerApplicationTests {
 
     private Logger logger = LoggerFactory.getLogger(ServerApplicationTests.class);
 
-    private final static String username1 = "testuser1";
+    private final static String username1 = UUID.randomUUID().toString().replace("-", "").substring(0, 5);
     private final static String password1 = "password";
-    private final static String username2 = "testuser2";
+    private final static String username2 = UUID.randomUUID().toString().replace("-", "").substring(0, 5);
     private final static String password2 = "password";
 
     private static HttpEntity<MultiValueMap<String, String>> loginRequest1;
@@ -41,7 +43,6 @@ public class ServerApplicationTests {
 
         MultiValueMap<String, String> map1 = new LinkedMultiValueMap<>();
         MultiValueMap<String, String> map2 = new LinkedMultiValueMap<>();
-
 
         map1.add("username", username1);
         map1.add("password", password1);
@@ -73,11 +74,11 @@ public class ServerApplicationTests {
 
         HttpEntity<User> request = new HttpEntity<>(user);
 
-        user = restTemplate.postForObject("/register", request, User.class);
+        User savedUser = restTemplate.postForObject("/register", request, User.class);
 
-        assertEquals(1, user.getId());
+        assertEquals(username1, savedUser.getUsername());
 
-        logger.info(user.toString());
+        logger.info(savedUser.toString());
 
 
         /* register another user */
@@ -89,11 +90,11 @@ public class ServerApplicationTests {
 
         request = new HttpEntity<>(user);
 
-        user = restTemplate.postForObject("/register", request, User.class);
+        savedUser = restTemplate.postForObject("/register", request, User.class);
 
-        assertEquals(2, user.getId());
+        assertEquals(username2, savedUser.getUsername());
 
-        logger.info(user.toString());
+        logger.info(savedUser.toString());
     }
 
     @Test
