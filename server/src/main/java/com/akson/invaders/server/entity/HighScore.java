@@ -19,8 +19,8 @@ public class HighScore {
     private OffsetDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "PLAYER_ID")
-    private Player player;
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "SCORE")
     private Long score;
