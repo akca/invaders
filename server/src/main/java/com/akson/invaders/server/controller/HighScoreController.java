@@ -4,7 +4,6 @@ import com.akson.invaders.server.entity.HighScore;
 import com.akson.invaders.server.repository.HighScoreRepository;
 import com.akson.invaders.server.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -14,10 +13,8 @@ import java.util.Optional;
  */
 @RestController
 public class HighScoreController {
-    private HighScoreRepository highScoreRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private HighScoreRepository highScoreRepository;
 
     @Autowired
     public HighScoreController(HighScoreRepository highScoreRepository) {
