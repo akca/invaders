@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface HighScoreRepository extends JpaRepository<HighScore, Long> {
 
-    List<HighScore> findTop3ByOrderByScoreDesc();
+    HighScore findTopByOrderByScoreDesc();
 }
 

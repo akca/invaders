@@ -1,38 +1,69 @@
 package com.akson.invaders.server.controller;
 
 import com.akson.invaders.server.entity.HighScore;
-import com.akson.invaders.server.entity.User;
 import com.akson.invaders.server.repository.HighScoreRepository;
-import com.akson.invaders.server.util.ForbiddenException;
 import com.akson.invaders.server.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.Optional;
-import java.util.List;
 
-
+/**
+ * REST controller that is responsible for highscore data.
+ */
 @RestController
 public class HighScoreController {
     private HighScoreRepository highScoreRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public HighScoreController(HighScoreRepository highScoreRepository) {
         this.highScoreRepository = highScoreRepository;
     }
 
-    @PostMapping(value = "/highscores")
+    /**
+     * Adds HighScore objects that sent to the given URL using HTTP POST method.
+     *
+     * @param highScore HighScore object to be added
+     * @return persisted HighScore object
+     */
+    @PostMapping(value = "/score")
     public HighScore addHighScore(@RequestBody HighScore highScore) {
+
         return highScoreRepository.save(highScore);
     }
 
-    @GetMapping(value = "/highscores")
-    public List<HighScore> getHighestScores() {
-        return highScoreRepository.findTop3ByOrderByScoreDesc();
+
+    /**
+     * Returns top highscore details.
+     *
+     * @return persisted HighScore object
+     */
+    @GetMapping(value = "/score")
+    public HighScore getHighScoreDetails() {
+
+        return highScoreRepository.findTopByOrderByScoreDesc();
     }
 
+    /**
+     * Returns score details for given score id.
+     *
+     * @param id Score id to fetch
+     * @return persisted HighScore object
+     */
+    @GetMapping(value = "/score/{id}")
+    public HighScore getScoreDetails(@PathVariable Long id) {
+
+        final Optional<HighScore> optionalScore = highScoreRepository.findById(id);
+
+        if (optionalScore.isPresent())
+            return optionalScore.get();
+        else {
+            throw new NotFoundException("Cannot find a highscore with this id!");
+        }
+    }
 
 }
