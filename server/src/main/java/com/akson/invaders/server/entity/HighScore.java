@@ -24,4 +24,54 @@ public class HighScore {
 
     @Column(name = "SCORE")
     private Long score;
+
+    public HighScore() {
+    }
+
+    //TODO: consider default values of params
+    public HighScore(Long score) {
+        this.score = score;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public OffsetDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(OffsetDateTime date) {
+        this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "HighScore{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", user='" + user + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
