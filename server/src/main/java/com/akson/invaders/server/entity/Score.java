@@ -28,6 +28,12 @@ public class Score {
     public Score() {
     }
 
+    public Score(User user, long score, OffsetDateTime date) {
+        this.user = user;
+        this.score = score;
+        this.date = date;
+    }
+
     //TODO: consider default values of params
     public Score(Long score) {
         this.score = score;
