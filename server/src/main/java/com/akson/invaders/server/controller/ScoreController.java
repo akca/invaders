@@ -2,6 +2,7 @@ package com.akson.invaders.server.controller;
 
 import com.akson.invaders.server.entity.Score;
 import com.akson.invaders.server.repository.ScoreRepository;
+import com.akson.invaders.server.util.ControllerException;
 import com.akson.invaders.server.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,11 @@ public class ScoreController {
     @PostMapping(value = "/score")
     public Score addScore(@RequestBody Score score) {
 
-        return scoreRepository.save(score);
+        try {
+            return scoreRepository.save(score);
+        } catch (Exception e) {
+            throw new ControllerException("Score addition failed!");
+        }
     }
 
 
