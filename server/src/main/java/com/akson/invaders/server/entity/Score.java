@@ -7,8 +7,8 @@ import java.time.OffsetDateTime;
  * Single player game score entity for creating leader boards.
  */
 @Entity
-@Table(name = "HIGHSCORE")
-public class HighScore {
+@Table(name = "SCORE")
+public class Score {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,11 @@ public class HighScore {
     @Column(name = "SCORE")
     private Long score;
 
-    public HighScore() {
+    public Score() {
     }
 
     //TODO: consider default values of params
-    public HighScore(Long score) {
+    public Score(Long score) {
         this.score = score;
     }
 
@@ -67,7 +67,7 @@ public class HighScore {
 
     @Override
     public String toString() {
-        return "HighScore{" +
+        return "Score{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
                 ", user='" + user + '\'' +
