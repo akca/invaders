@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A User and their score constitute a Player entity. Every match has more than one Players.
+ * {@link Player} is the entity for multi player match participants.
+ * Each {@link User} will have a {@link Player} object for every {@link Match} they participated.
+ * <p>
+ * Every {@link Match} has more than one {@link Player}s.
  */
 @Entity
 @Table(name = "PLAYER")
@@ -32,7 +35,7 @@ public class Player implements Serializable {
 
     @JsonIgnore
     @Transient
-    private String ip;
+    private String ipAddress;
 
     public Player() {
     }
@@ -75,12 +78,12 @@ public class Player implements Serializable {
         this.score = score;
     }
 
-    public String getIp() {
-        return ip;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     @Override
@@ -92,11 +95,11 @@ public class Player implements Serializable {
                 Objects.equals(match, player.match) &&
                 Objects.equals(user, player.user) &&
                 Objects.equals(score, player.score) &&
-                Objects.equals(ip, player.ip);
+                Objects.equals(ipAddress, player.ipAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, match, user, score, ip);
+        return Objects.hash(id, match, user, score, ipAddress);
     }
 }

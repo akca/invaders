@@ -3,6 +3,12 @@ package com.akson.invaders.server.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class holds basic user credentials and generic information about users.
+ * <p>
+ * Single player and multi player game modes both require a {@link User} entity.
+ * Users of the game need to register a {@link User} to be able to play.
+ */
 @Entity
 @Table(name = "USER")
 public class User {
@@ -21,6 +27,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    // experience points
     @Column(name = "POINTS")
     private long points;
 
