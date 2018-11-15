@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Multiplayer Match entity for keeping game state, player list and more.
@@ -31,6 +32,9 @@ public class Match {
     /* do not persist serverPort since it's unnecessary */
     @Transient
     private int serverPort;
+
+    public Match() {
+    }
 
     public Match(MatchState state, int serverPort) {
         this.players = new ArrayList<>();
@@ -99,4 +103,20 @@ public class Match {
         this.serverPort = serverPort;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return id == match.id &&
+                serverPort == match.serverPort &&
+                state == match.state &&
+                Objects.equals(date, match.date) &&
+                match.players.equals(players);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, state, date, players, serverPort);
+    }
 }
