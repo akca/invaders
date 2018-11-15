@@ -10,7 +10,6 @@ import com.akson.invaders.server.repository.PlayerRepository;
 import com.akson.invaders.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,8 @@ import java.util.*;
 /**
  * Gathers users that want to play a multi-player game.
  * Starts a new match between them when there are at least 2 of them.
+ *
+ * TODO: Design of this class is not finalized. Logic is probably going to change radically.
  */
 @RestController
 public class Lobby {
@@ -42,11 +43,9 @@ public class Lobby {
 
     /**
      * Gathers users in the {@link Lobby#lobbyUsers}. When there are 2 users, start a match between them immediately.
-     * <p>
-     * TODO: Design of this method is not finalized. Logic is probably going to change radically.
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest object for fetching logged in user
+     * @return Match object if we have enough users, null otherwise.
      */
     @GetMapping(value = "/enterlobby")
     public Match enterLobby(HttpServletRequest request) {
@@ -107,8 +106,13 @@ public class Lobby {
         }
     }
 
+    /**
+     * Makes logged in user leave the lobby.
+     *
+     * @param request HttpServletRequest object for fetching logged in user
+     */
     @GetMapping(value = "/leavelobby")
-    public void leaveLobby(@PathVariable String name, HttpServletRequest request) {
+    public void leaveLobby(HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
         String loginUsername = principal.getName();
