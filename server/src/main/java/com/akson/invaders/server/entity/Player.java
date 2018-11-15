@@ -22,15 +22,15 @@ public class Player implements Serializable {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "MATCH_ID")
+    @JoinColumn(name = "MATCH_ID", nullable = false)
     @JsonIgnore
     private Match match;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @Column(name = "SCORE")
+    @Column(name = "SCORE", nullable = false)
     private long score;
 
     @JsonIgnore

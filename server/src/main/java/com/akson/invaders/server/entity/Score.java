@@ -15,14 +15,14 @@ public class Score {
     @Column(name = "SCORE_ID")
     private long id;
 
-    @Column(name = "DATE")
+    @Column(name = "DATE", nullable = false)
     private OffsetDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @Column(name = "SCORE")
+    @Column(name = "SCORE", nullable = false)
     private long score;
 
     public Score() {

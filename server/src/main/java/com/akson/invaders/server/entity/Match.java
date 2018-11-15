@@ -20,10 +20,10 @@ public class Match {
     @Column(name = "MATCH_ID")
     private long id;
 
-    @Column(name = "STATE")
+    @Column(name = "STATE", nullable = false)
     private MatchState state;
 
-    @Column(name = "DATE")
+    @Column(name = "DATE", nullable = false)
     private OffsetDateTime date;
 
     @OneToMany(mappedBy = "match")
