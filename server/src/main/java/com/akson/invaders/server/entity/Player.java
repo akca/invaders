@@ -28,7 +28,7 @@ public class Player implements Serializable {
     private User user;
 
     @Column(name = "SCORE")
-    private Long score;
+    private long score;
 
     @JsonIgnore
     @Transient
@@ -67,11 +67,11 @@ public class Player implements Serializable {
         this.user = user;
     }
 
-    public Long getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(long score) {
         this.score = score;
     }
 

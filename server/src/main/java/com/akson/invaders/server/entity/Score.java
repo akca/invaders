@@ -23,7 +23,7 @@ public class Score {
     private User user;
 
     @Column(name = "SCORE")
-    private Long score;
+    private long score;
 
     public Score() {
     }
