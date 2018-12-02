@@ -1,6 +1,6 @@
 package com.akson.invaders.server.security;
 
-import com.akson.invaders.server.entity.User;
+import com.akson.invaders.common.entity.User;
 import com.akson.invaders.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

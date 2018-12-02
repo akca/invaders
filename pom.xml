@@ -8,9 +8,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+    </properties>
+
     <modules>
         <module>server</module>
         <module>client</module>
+        <module>common</module>
     </modules>
 
 </project>

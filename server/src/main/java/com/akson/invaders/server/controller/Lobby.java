@@ -1,10 +1,10 @@
 package com.akson.invaders.server.controller;
 
+import com.akson.invaders.common.entity.Match;
+import com.akson.invaders.common.entity.Player;
+import com.akson.invaders.common.entity.User;
+import com.akson.invaders.common.entity.attr.MatchState;
 import com.akson.invaders.server.MPGameManager;
-import com.akson.invaders.server.entity.Match;
-import com.akson.invaders.server.entity.Player;
-import com.akson.invaders.server.entity.User;
-import com.akson.invaders.server.entity.attr.MatchState;
 import com.akson.invaders.server.repository.MatchRepository;
 import com.akson.invaders.server.repository.PlayerRepository;
 import com.akson.invaders.server.repository.UserRepository;
@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * Gathers users that want to play a multi-player game.
  * Starts a new match between them when there are at least 2 of them.
- *
+ * <p>
  * TODO: Design of this class is not finalized. Logic is probably going to change radically.
  */
 @RestController

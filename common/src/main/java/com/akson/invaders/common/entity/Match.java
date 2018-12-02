@@ -1,6 +1,6 @@
-package com.akson.invaders.server.entity;
+package com.akson.invaders.common.entity;
 
-import com.akson.invaders.server.entity.attr.MatchState;
+import com.akson.invaders.common.entity.attr.MatchState;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;

@@ -1,4 +1,4 @@
-package com.akson.invaders.server.entity;
+package com.akson.invaders.common.entity;
 
 import javax.persistence.*;
 import java.util.Objects;

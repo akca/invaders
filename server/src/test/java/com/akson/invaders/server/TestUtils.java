@@ -1,6 +1,6 @@
 package com.akson.invaders.server;
 
-import com.akson.invaders.server.entity.User;
+import com.akson.invaders.common.entity.User;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 

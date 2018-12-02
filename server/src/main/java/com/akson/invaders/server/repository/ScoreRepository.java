@@ -1,6 +1,7 @@
 package com.akson.invaders.server.repository;
 
-import com.akson.invaders.server.entity.Score;
+
+import com.akson.invaders.common.entity.Score;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

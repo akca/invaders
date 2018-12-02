@@ -1,6 +1,6 @@
 package com.akson.invaders.server.controller;
 
-import com.akson.invaders.server.entity.Score;
+import com.akson.invaders.common.entity.Score;
 import com.akson.invaders.server.repository.ScoreRepository;
 import com.akson.invaders.server.util.ControllerException;
 import com.akson.invaders.server.util.NotFoundException;

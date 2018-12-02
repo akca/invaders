@@ -1,6 +1,6 @@
 package com.akson.invaders.server.controller;
 
-import com.akson.invaders.server.entity.User;
+import com.akson.invaders.common.entity.User;
 import com.akson.invaders.server.repository.UserRepository;
 import com.akson.invaders.server.util.ForbiddenException;
 import com.akson.invaders.server.util.NotFoundException;
@@ -30,7 +30,7 @@ public class UserController {
     /**
      * Registers User objects that sent to the given URL using HTTP POST method.
      *
-     * @param user    User object to be registered
+     * @param user User object to be registered
      * @return persisted User object
      */
     @PostMapping(value = "/register")

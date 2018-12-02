@@ -1,4 +1,4 @@
-package com.akson.invaders.server.entity;
+package com.akson.invaders.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

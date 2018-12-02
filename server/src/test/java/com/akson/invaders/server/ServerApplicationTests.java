@@ -1,6 +1,6 @@
 package com.akson.invaders.server;
 
-import com.akson.invaders.server.entity.User;
+import com.akson.invaders.common.entity.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

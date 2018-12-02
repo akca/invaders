@@ -1,7 +1,7 @@
 package com.akson.invaders.server.controller;
 
+import com.akson.invaders.common.entity.User;
 import com.akson.invaders.server.TestUtils;
-import com.akson.invaders.server.entity.User;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

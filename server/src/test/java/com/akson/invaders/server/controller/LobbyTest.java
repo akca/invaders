@@ -1,7 +1,7 @@
 package com.akson.invaders.server.controller;
 
-import com.akson.invaders.server.entity.Match;
-import com.akson.invaders.server.entity.attr.MatchState;
+import com.akson.invaders.common.entity.Match;
+import com.akson.invaders.common.entity.attr.MatchState;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

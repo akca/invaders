@@ -1,7 +1,7 @@
 package com.akson.invaders.server.controller;
 
-import com.akson.invaders.server.entity.Score;
-import com.akson.invaders.server.entity.User;
+import com.akson.invaders.common.entity.Score;
+import com.akson.invaders.common.entity.User;
 import com.akson.invaders.server.repository.ScoreRepository;
 import com.akson.invaders.server.repository.UserRepository;
 import org.junit.jupiter.api.Test;
