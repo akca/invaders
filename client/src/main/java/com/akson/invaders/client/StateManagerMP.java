@@ -7,10 +7,6 @@ public class StateManagerMP extends StateManager {
 
     private static Logger logger = LoggerFactory.getLogger(StateManagerMP.class);
 
-    public StateManagerMP(SpaceInvadersApp game) {
-        super(game);
-    }
-
     @Override
     public void addObject(GameObject object) {
 

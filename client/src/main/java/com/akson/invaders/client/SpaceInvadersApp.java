@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,7 +36,6 @@ public class SpaceInvadersApp extends Application {
     private Stage stage;
     private Pane root = new Pane();
 
-    private GameObject playerObject;
     private StateManager stateManager;
 
     private BooleanProperty upPressed = new SimpleBooleanProperty();
@@ -62,51 +60,6 @@ public class SpaceInvadersApp extends Application {
         switchToMainMenuScene();
 
     }
-
-    private Sprite findSpriteByGameObject(GameObject object) {
-
-        for (Node n : root.getChildren()) {
-            Sprite s = (Sprite) n;
-
-            if (s.getGameObject() == object) {
-                return s;
-            }
-        }
-
-        return null;
-    }
-
-    public void updateObject(GameObject object) {
-
-        Platform.runLater(() -> {
-            Sprite relatedSprite = findSpriteByGameObject(object);
-
-            if (relatedSprite == null) {
-                logger.error("Sprite to update cannot found!");
-                return;
-            }
-
-            relatedSprite.setPosition(object.getX(), object.getY());
-        });
-
-    }
-
-    public void addObject(GameObject object) {
-        Platform.runLater(() ->
-                root.getChildren().add(object.getSprite())
-        );
-    }
-
-    public void deleteObject(GameObject object) {
-        Platform.runLater(() ->
-                root.getChildren().remove(object.getSprite())
-        );
-    }
-
-    public GameObject getPlayerObject() {
-        return playerObject;
-    }
-
 
     private Parent createMainMenuUI() {
 
@@ -173,8 +126,12 @@ public class SpaceInvadersApp extends Application {
     private void switchToGameScene() {
 
         Scene gameScene = new Scene(root);
-        stateManager = new StateManagerSP(this);
-        playerObject = new GameObject(GameObjectType.LOCAL_PLAYER, 300, 700);
+        stateManager = new StateManagerSP();
+        stateManager.setGameField(root);
+
+        GameObject playerObject = new GameObject(GameObjectType.LOCAL_PLAYER, 300, 700);
+
+        stateManager.setPlayerObject(playerObject);
 
         Sprite playerSprite = new Sprite(playerObject,
                 playerObject.getX(),

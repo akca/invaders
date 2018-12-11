@@ -2,8 +2,6 @@ package com.akson.invaders.client;
 
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
@@ -11,19 +9,11 @@ import static com.akson.invaders.client.SpaceInvadersApp.WINDOW_HEIGHT;
 
 public class StateManagerSP extends StateManager {
 
-    private static Logger logger = LoggerFactory.getLogger(StateManagerSP.class);
-
-
-    public StateManagerSP(SpaceInvadersApp game) {
-        super(game);
-    }
-
     @Override
     public void addObject(GameObject object) {
         gameObjects.put(object.getId(), object);
 
-        game.addObject(object);
-
+        addObjectToUI(object);
     }
 
     @Override
@@ -33,7 +23,7 @@ public class StateManagerSP extends StateManager {
         int newX = gameObject.getX() + amount;
         gameObject.setX(newX);
 
-        game.updateObject(gameObject);
+        updateObject(gameObject);
     }
 
     @Override
@@ -43,7 +33,7 @@ public class StateManagerSP extends StateManager {
         int newY = gameObject.getY() + amount;
         gameObject.setY(newY);
 
-        game.updateObject(gameObject);
+        updateObject(gameObject);
     }
 
     @Override
@@ -56,8 +46,6 @@ public class StateManagerSP extends StateManager {
 
                     case ENEMY_BULLET:
                         moveVertical(gameObject.getId(), 5);
-
-                        GameObject playerObject = game.getPlayerObject();
 
                         Bounds bulletBounds = gameObject.getSprite().getBoundsInParent();
                         Bounds playerBounds = playerObject.getSprite().getBoundsInParent();
@@ -105,7 +93,7 @@ public class StateManagerSP extends StateManager {
 
 //                    logger.debug(gameObject.toString());
 
-                    game.deleteObject(gameObject);
+                    deleteObject(gameObject);
                     it.remove();
                 }
             }

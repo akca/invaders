@@ -7,7 +7,7 @@ public class Sprite extends Rectangle {
 
     private GameObject gameObject;
 
-    Sprite(GameObject gameObject, int x, int y, int width, int height, Color color) {
+    public Sprite(GameObject gameObject, int x, int y, int width, int height, Color color) {
 
         super(width, height, color);
 
