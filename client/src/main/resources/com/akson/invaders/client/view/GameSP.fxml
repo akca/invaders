@@ -58,5 +58,5 @@
             </Label>
         </children>
     </GridPane>
-    <Pane fx:id="gameFieldPane" GridPane.rowIndex="1"/>
+    <Pane fx:id="gameFieldPane" minHeight="770" GridPane.rowIndex="1"/>
 </GridPane>

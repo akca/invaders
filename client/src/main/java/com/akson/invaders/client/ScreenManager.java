@@ -59,8 +59,8 @@ public class ScreenManager extends StackPane {
             getChildren().clear();
 
             currentScreen = newScreen;
-            currentScreen.onDisplay();
             getChildren().add(currentScreen.getParentNode());
+            currentScreen.onDisplay();
 
         } else {
             logger.error("Screen with name {} is not available!", name);

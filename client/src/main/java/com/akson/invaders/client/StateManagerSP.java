@@ -102,7 +102,7 @@ public class StateManagerSP extends StateManager {
 
                 GameObject gameObject = it.next();
 
-                if (gameObject.isDead() || gameObject.getY() > gameFieldPane.getHeight() || gameObject.getY() < 0) {
+                if (gameObject.isDead() || gameObject.getY() > gameFieldPane.getMinHeight() || gameObject.getY() < 0) {
 
                     deleteObject(gameObject);
                     it.remove();
