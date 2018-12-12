@@ -48,7 +48,7 @@ public class StateManagerSP extends StateManager {
                 switch (gameObject.getType()) {
 
                     case ENEMY_BULLET:
-                        moveVertical(gameObject.getId(), 5);
+                        moveVertical(gameObject.getId(), 7);
 
                         Bounds bulletBounds = gameObject.getSprite().getBoundsInParent();
                         Bounds playerBounds = playerObject.getSprite().getBoundsInParent();
@@ -67,7 +67,7 @@ public class StateManagerSP extends StateManager {
                         break;
 
                     case BULLET:
-                        moveVertical(gameObject.getId(), -5);
+                        moveVertical(gameObject.getId(), -7);
 
                         gameObjects.values().stream()
                                 .filter(e -> e.getType().equals(GameObjectType.ENEMY))
