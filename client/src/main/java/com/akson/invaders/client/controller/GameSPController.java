@@ -33,6 +33,8 @@ public class GameSPController extends AbstractScreenController {
     private StateManager stateManager = null;
     private AnimationTimer timer;
     private Date latestShootTime = new Date();
+    private Date latestVerticalMoveTime = new Date();
+    private Date latestHorizontalMoveTime = new Date();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,17 +98,42 @@ public class GameSPController extends AbstractScreenController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
                 if (leftPressed.get() && playerObject.getX() > 0) {
-                    stateManager.moveHorizontal(playerObject.getId(), -4);
+                    Date currentTime = new Date();
+
+                    if (currentTime.getTime() - latestHorizontalMoveTime.getTime() > 30) {
+                        stateManager.moveHorizontal(playerObject.getId(), -6);
+                        latestHorizontalMoveTime = currentTime;
+                    }
                 }
+
                 if (rightPressed.get() && playerObject.getX() + PLAYER_SIZE < gameFieldPane.getWidth()) {
-                    stateManager.moveHorizontal(playerObject.getId(), 4);
+                    Date currentTime = new Date();
+
+                    if (currentTime.getTime() - latestHorizontalMoveTime.getTime() > 30) {
+                        stateManager.moveHorizontal(playerObject.getId(), 6);
+                        latestHorizontalMoveTime = currentTime;
+                    }
+
                 }
+
                 if (upPressed.get() && playerObject.getY() > 0) {
-                    stateManager.moveVertical(playerObject.getId(), -4);
+                    Date currentTime = new Date();
+
+                    if (currentTime.getTime() - latestVerticalMoveTime.getTime() > 30) {
+                        stateManager.moveVertical(playerObject.getId(), -6);
+                        latestVerticalMoveTime = currentTime;
+                    }
                 }
+
                 if (downPressed.get() && playerObject.getY() + PLAYER_SIZE < gameFieldPane.getHeight()) {
-                    stateManager.moveVertical(playerObject.getId(), 4);
+                    Date currentTime = new Date();
+
+                    if (currentTime.getTime() - latestVerticalMoveTime.getTime() > 30) {
+                        stateManager.moveVertical(playerObject.getId(), 6);
+                        latestVerticalMoveTime = currentTime;
+                    }
                 }
                 if (spacePressed.get()) {
 
