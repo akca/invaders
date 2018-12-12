@@ -7,6 +7,9 @@ import java.util.Iterator;
 
 public class StateManagerSP extends StateManager {
 
+    private final int bulletWidth = 5;
+    private final int bulletHeight = 15;
+
     @Override
     public void addObject(GameObject object) {
         gameObjects.put(object.getId(), object);
@@ -113,7 +116,7 @@ public class StateManagerSP extends StateManager {
                 Thread.sleep(30);
             } catch (InterruptedException e) {
                 interrupt();
-                logger.debug("Sleep interrupted!");
+                logger.debug("StateManager thread is interrupted");
             }
         }
     }
@@ -129,13 +132,16 @@ public class StateManagerSP extends StateManager {
             bulletType = GameObjectType.BULLET;
         }
 
-        GameObject bulletObject = new GameObject(bulletType, who.getX() + 15, who.getY());
+        // bullet goes from the center of the sprite
+        int positionX = who.getX() + (int) ((who.getSprite().getWidth() - bulletWidth) / 2);
+
+        GameObject bulletObject = new GameObject(bulletType, positionX, who.getY());
 
         Sprite bulletSprite = new Sprite(bulletObject,
                 bulletObject.getX(),
                 bulletObject.getY(),
-                5,
-                20,
+                bulletWidth,
+                bulletHeight,
                 Color.BLACK);
 
         addObject(bulletObject);

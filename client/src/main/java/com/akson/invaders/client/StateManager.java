@@ -16,7 +16,7 @@ public abstract class StateManager implements Runnable {
     protected final ConcurrentHashMap<String, GameObject> gameObjects = new ConcurrentHashMap<>();
     protected GameObject playerObject;
     protected Pane gameFieldPane;
-    private Thread workerThread;
+    private Thread workerThread = null;
 
     public abstract void addObject(GameObject object);
 
@@ -91,7 +91,10 @@ public abstract class StateManager implements Runnable {
 
     public void interrupt() {
         running.set(false);
-        workerThread.interrupt();
+
+        if (workerThread != null) {
+            workerThread.interrupt();
+        }
     }
 
 
