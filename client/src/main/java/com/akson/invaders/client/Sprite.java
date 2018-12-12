@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Sprite extends Rectangle {
 
-    private GameObject gameObject;
+    private final GameObject gameObject;
 
     public Sprite(GameObject gameObject, int x, int y, int width, int height, Color color) {
 

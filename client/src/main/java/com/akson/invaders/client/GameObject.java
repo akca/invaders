@@ -4,16 +4,13 @@ import java.util.UUID;
 
 public class GameObject {
 
-    private String id;
+    private final String id;
     private Sprite sprite;
     private GameObjectType type;
     private boolean dead;
     private int x;
     private int y;
-
-    public GameObject() {
-        this.id = UUID.randomUUID().toString();
-    }
+    private int health = 100;
 
     public GameObject(GameObjectType type, int x, int y) {
         this.type = type;
@@ -24,10 +21,6 @@ public class GameObject {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Sprite getSprite() {
@@ -71,7 +64,11 @@ public class GameObject {
         return type;
     }
 
-    public void setType(GameObjectType type) {
-        this.type = type;
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

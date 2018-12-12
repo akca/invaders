@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="800.0" maxWidth="600.0" minHeight="800.0" minWidth="600.0"
+          prefHeight="400.0"
+          prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+          fx:controller="com.akson.invaders.client.controller.GameSPController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="30.0"/>
+        <RowConstraints minHeight="770.0"/>
+    </rowConstraints>
+    <GridPane gridLinesVisible="true">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="537.0" minWidth="10.0"
+                               prefWidth="118.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="537.0" minWidth="10.0" prefWidth="432.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="293.0" minWidth="50.0"
+                               prefWidth="50.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <children>
+            <Button focusTraversable="false" maxHeight="30.0" maxWidth="50.0" minHeight="30.0" minWidth="50.0"
+                    mnemonicParsing="false" onAction="#goToMainScreen" prefHeight="30.0" prefWidth="50.0" text="⮌"
+                    GridPane.columnIndex="2">
+                <font>
+                    <Font size="17.0"/>
+                </font>
+            </Button>
+            <Label text="10" GridPane.columnIndex="1">
+                <font>
+                    <Font size="22.0"/>
+                </font>
+                <effect>
+                    <DropShadow height="10.0" radius="4.5" spread="0.14" width="10.0"/>
+                </effect>
+                <padding>
+                    <Insets left="180.0"/>
+                </padding>
+            </Label>
+            <Label text="INVADERS">
+                <font>
+                    <Font name="Verdana" size="19.0"/>
+                </font>
+                <effect>
+                    <DropShadow blurType="ONE_PASS_BOX" color="RED" height="8.0" radius="3.5" spread="1.0"
+                                width="8.0"/>
+                </effect>
+            </Label>
+        </children>
+    </GridPane>
+    <Pane fx:id="gameFieldPane" GridPane.rowIndex="1"/>
+</GridPane>

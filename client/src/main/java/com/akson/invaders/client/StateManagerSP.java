@@ -5,8 +5,6 @@ import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
-import static com.akson.invaders.client.SpaceInvadersApp.WINDOW_HEIGHT;
-
 public class StateManagerSP extends StateManager {
 
     @Override
@@ -39,7 +37,9 @@ public class StateManagerSP extends StateManager {
     @Override
     public void run() {
 
-        while (true) {
+        running.set(true);
+
+        while (running.get()) {
 
             gameObjects.values().forEach(gameObject -> {
                 switch (gameObject.getType()) {
@@ -51,7 +51,14 @@ public class StateManagerSP extends StateManager {
                         Bounds playerBounds = playerObject.getSprite().getBoundsInParent();
 
                         if (bulletBounds.intersects(playerBounds)) {
-                            playerObject.setDead(true);
+
+                            // decrement health by 20
+                            playerObject.setHealth(playerObject.getHealth() - 20);
+
+                            if (playerObject.getHealth() <= 0) {
+                                playerObject.setDead(true);
+                            }
+
                             gameObject.setDead(true);
                         }
                         break;
@@ -64,7 +71,14 @@ public class StateManagerSP extends StateManager {
                                 .forEach(enemy -> {
                                     if (gameObject.getSprite().getBoundsInParent()
                                             .intersects(enemy.getSprite().getBoundsInParent())) {
-                                        enemy.setDead(true);
+
+                                        // decrement health by 20
+                                        enemy.setHealth(enemy.getHealth() - 20);
+
+                                        if (enemy.getHealth() <= 0) {
+                                            enemy.setDead(true);
+                                        }
+
                                         gameObject.setDead(true);
                                     }
                                 });
@@ -81,17 +95,14 @@ public class StateManagerSP extends StateManager {
                 }
             });
 
+            /* remove dead or out of the screen objects */
             Iterator<GameObject> it = gameObjects.values().iterator();
 
             while (it.hasNext()) {
 
                 GameObject gameObject = it.next();
 
-                if (gameObject.isDead()
-                        || gameObject.getY() > WINDOW_HEIGHT
-                        || gameObject.getY() < 0) {
-
-//                    logger.debug(gameObject.toString());
+                if (gameObject.isDead() || gameObject.getY() > gameFieldPane.getHeight() || gameObject.getY() < 0) {
 
                     deleteObject(gameObject);
                     it.remove();
@@ -101,7 +112,8 @@ public class StateManagerSP extends StateManager {
             try {
                 Thread.sleep(30);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                interrupt();
+                logger.debug("Sleep interrupted!");
             }
         }
     }
@@ -128,5 +140,4 @@ public class StateManagerSP extends StateManager {
 
         addObject(bulletObject);
     }
-
 }
