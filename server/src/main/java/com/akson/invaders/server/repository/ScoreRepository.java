@@ -12,8 +12,8 @@ import java.time.OffsetDateTime;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Long> {
 
-    Page<Score> findByOrderByScoreDesc(Pageable pageable);
+    Page<Score> findByOrderByScoreAsc(Pageable pageable);
 
-    Page<Score> findByDateBetweenOrderByScoreDesc(OffsetDateTime start, OffsetDateTime end, Pageable pageable);
+    Page<Score> findByDateBetweenOrderByScoreAsc(OffsetDateTime start, OffsetDateTime end, Pageable pageable);
 }
 

@@ -53,7 +53,7 @@ public class ScoreController {
     @GetMapping(value = "/score/all")
     public Page<Score> getHighScoreDetailsAllTime(Pageable pageable) {
 
-        return scoreRepository.findByOrderByScoreDesc(pageable);
+        return scoreRepository.findByOrderByScoreAsc(pageable);
     }
 
     /**
@@ -67,7 +67,7 @@ public class ScoreController {
     @GetMapping(value = "/score/month")
     public Page<Score> getHighScoreDetailsMonthly(Pageable pageable) {
 
-        return scoreRepository.findByDateBetweenOrderByScoreDesc(
+        return scoreRepository.findByDateBetweenOrderByScoreAsc(
                 OffsetDateTime.now().minusMonths(1), OffsetDateTime.now(), pageable);
     }
 
@@ -83,7 +83,7 @@ public class ScoreController {
     @GetMapping(value = "/score/week")
     public Page<Score> getHighScoreDetailsWeekly(Pageable pageable) {
 
-        return scoreRepository.findByDateBetweenOrderByScoreDesc(
+        return scoreRepository.findByDateBetweenOrderByScoreAsc(
                 OffsetDateTime.now().minusDays(7), OffsetDateTime.now(), pageable);
     }
 
@@ -99,7 +99,7 @@ public class ScoreController {
     @GetMapping(value = "/score/day")
     public Page<Score> getHighScoreDetailsDaily(Pageable pageable) {
 
-        return scoreRepository.findByDateBetweenOrderByScoreDesc(
+        return scoreRepository.findByDateBetweenOrderByScoreAsc(
                 OffsetDateTime.now().minusDays(1), OffsetDateTime.now(), pageable);
     }
 
