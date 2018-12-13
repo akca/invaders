@@ -5,7 +5,7 @@
 
     <groupId>com.akson.invaders</groupId>
     <artifactId>invaders</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <properties>
