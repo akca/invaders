@@ -40,6 +40,12 @@ public abstract class StateManager implements Runnable {
 
     public abstract void shoot(GameObject who);
 
+    /**
+     * Find a GameObject's sprite from all added Sprites.
+     *
+     * @param object object whose sprite is going to be found
+     * @return Sprite of the object OR null (if not found).
+     */
     protected Sprite findSpriteByGameObject(GameObject object) {
 
         for (Node n : gameFieldPane.getChildren()) {
@@ -53,6 +59,12 @@ public abstract class StateManager implements Runnable {
         return null;
     }
 
+    /**
+     * Returns a list of GameObject whose type is same with the given type.
+     *
+     * @param type filter type
+     * @return filtered list of GameObjects
+     */
     protected List<GameObject> filterObjectsByType(GameObjectType type) {
         List<GameObject> result = new ArrayList<>();
 
@@ -65,18 +77,33 @@ public abstract class StateManager implements Runnable {
         return result;
     }
 
+    /**
+     * Delete an object from UI.
+     *
+     * @param object object to delete
+     */
     public void deleteObject(GameObject object) {
         Platform.runLater(() ->
                 gameFieldPane.getChildren().remove(object.getSprite())
         );
     }
 
+    /**
+     * Add an object to UI.
+     *
+     * @param object object to delete
+     */
     protected void addObjectToUI(GameObject object) {
         Platform.runLater(() ->
                 gameFieldPane.getChildren().add(object.getSprite())
         );
     }
 
+    /**
+     * Update an object from UI.
+     *
+     * @param object object to delete
+     */
     protected void updateObject(GameObject object) {
 
         Platform.runLater(() -> {
@@ -91,12 +118,18 @@ public abstract class StateManager implements Runnable {
         });
     }
 
+    /**
+     * Start StateManager thread.
+     */
     public void start() {
         workerThread = new Thread(this);
         workerThread.setName("StateManager Thread");
         workerThread.start();
     }
 
+    /**
+     * Interrupt StateManager Thread.
+     */
     public void interrupt() {
         running.set(false);
 
