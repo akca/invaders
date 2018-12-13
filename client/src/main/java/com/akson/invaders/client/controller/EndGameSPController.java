@@ -1,6 +1,7 @@
 package com.akson.invaders.client.controller;
 
 import com.akson.invaders.client.AbstractScreenController;
+import com.akson.invaders.client.InvadersApplication;
 import com.akson.invaders.client.ScreenEnum;
 import com.akson.invaders.common.entity.Score;
 import javafx.event.ActionEvent;
@@ -47,7 +48,7 @@ public class EndGameSPController extends AbstractScreenController {
 
         Score score = new Score(LoginController.currentUser, time, OffsetDateTime.now());
 
-        ResponseEntity<Score> response1 = restTemplate.postForEntity("http://localhost:8080/score", score, Score.class);
+        ResponseEntity<Score> response1 = restTemplate.postForEntity(InvadersApplication.serverURL + "/score", score, Score.class);
 
     }
 

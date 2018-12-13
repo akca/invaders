@@ -1,6 +1,7 @@
 package com.akson.invaders.client.controller;
 
 import com.akson.invaders.client.AbstractScreenController;
+import com.akson.invaders.client.InvadersApplication;
 import com.akson.invaders.client.ScreenEnum;
 import com.akson.invaders.common.entity.User;
 import javafx.application.Platform;
@@ -77,7 +78,7 @@ public class RegisterController extends AbstractScreenController {
 
                 HttpEntity<User> request = new HttpEntity<>(user);
 
-                User savedUser = restTemplate.postForObject("http://localhost:8080/register", request, User.class);
+                User savedUser = restTemplate.postForObject(InvadersApplication.serverURL + "/register", request, User.class);
 
                 if (savedUser != null) {
                     LoginController.currentUser = savedUser;

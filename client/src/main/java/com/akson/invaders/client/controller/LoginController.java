@@ -1,6 +1,7 @@
 package com.akson.invaders.client.controller;
 
 import com.akson.invaders.client.AbstractScreenController;
+import com.akson.invaders.client.InvadersApplication;
 import com.akson.invaders.client.ScreenEnum;
 import com.akson.invaders.common.entity.User;
 import javafx.application.Platform;
@@ -75,7 +76,7 @@ public class LoginController extends AbstractScreenController {
 
             ResponseEntity<User> response1 = null;
             try {
-                response1 = restTemplate.getForEntity("http://localhost:8080/user", User.class);
+                response1 = restTemplate.getForEntity(InvadersApplication.serverURL + "/user", User.class);
 
                 if (response1.getStatusCode() == HttpStatus.OK) {
                     currentUser = response1.getBody();

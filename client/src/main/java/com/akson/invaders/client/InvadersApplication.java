@@ -14,9 +14,18 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class InvadersApplication extends Application {
 
+    public static String serverURL;
+
     private ConfigurableApplicationContext springContext;
 
     public static void main(String[] args) {
+
+        if (args.length > 0) {
+            serverURL = args[0];
+        } else {
+            serverURL = "http://localhost:8080";
+        }
+
         launch(args);
     }
 

@@ -1,6 +1,7 @@
 package com.akson.invaders.client.controller;
 
 import com.akson.invaders.client.AbstractScreenController;
+import com.akson.invaders.client.InvadersApplication;
 import com.akson.invaders.client.ScreenEnum;
 import com.akson.invaders.client.util.HighScoreModel;
 import com.akson.invaders.common.entity.Score;
@@ -61,7 +62,7 @@ public class HighscoreController extends AbstractScreenController {
 
             ResponseEntity<PagedResources<Score>> response;
 
-            response = restTemplate.exchange("http://localhost:8080/score/all",
+            response = restTemplate.exchange(InvadersApplication.serverURL + "/score/all",
                     HttpMethod.GET, null, new ParameterizedTypeReference<PagedResources<Score>>() {
                     });
             try {
@@ -71,7 +72,7 @@ public class HighscoreController extends AbstractScreenController {
 
             }
 
-            response = restTemplate.exchange("http://localhost:8080/score/day",
+            response = restTemplate.exchange(InvadersApplication.serverURL + "/score/day",
                     HttpMethod.GET, null, new ParameterizedTypeReference<PagedResources<Score>>() {
                     });
             try {
@@ -80,7 +81,7 @@ public class HighscoreController extends AbstractScreenController {
 
             }
 
-            response = restTemplate.exchange("http://localhost:8080/score/week",
+            response = restTemplate.exchange(InvadersApplication.serverURL + "/score/week",
                     HttpMethod.GET, null, new ParameterizedTypeReference<PagedResources<Score>>() {
                     });
             try {
@@ -89,7 +90,7 @@ public class HighscoreController extends AbstractScreenController {
 
             }
 
-            response = restTemplate.exchange("http://localhost:8080/score/month",
+            response = restTemplate.exchange(InvadersApplication.serverURL + "/score/month",
                     HttpMethod.GET, null, new ParameterizedTypeReference<PagedResources<Score>>() {
                     });
             try {
