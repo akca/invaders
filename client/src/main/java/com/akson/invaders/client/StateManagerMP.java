@@ -3,6 +3,11 @@ package com.akson.invaders.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Specialized {@link StateManager} for multi player game mode.
+ *
+ * @see StateManager
+ */
 public class StateManagerMP extends StateManager {
 
     private static Logger logger = LoggerFactory.getLogger(StateManagerMP.class);

@@ -3,6 +3,9 @@ package com.akson.invaders.client;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Visible part of the {@link GameObject}.
+ */
 public class Sprite extends Rectangle {
 
     private final GameObject gameObject;

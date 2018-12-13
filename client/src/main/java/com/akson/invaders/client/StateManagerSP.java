@@ -9,6 +9,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Specialized {@link StateManager} for single player game mode.
+ *
+ * @see StateManager
+ */
 public class StateManagerSP extends StateManager {
 
     private final int bulletWidth = 5;
@@ -27,6 +32,12 @@ public class StateManagerSP extends StateManager {
         addObjectToUI(object);
     }
 
+    /**
+     * Move given object horizontally by given amount.
+     *
+     * @param objectId object to move
+     * @param amount   amount of move
+     */
     @Override
     public void moveHorizontal(String objectId, int amount) {
         GameObject gameObject = gameObjects.get(objectId);
@@ -37,6 +48,12 @@ public class StateManagerSP extends StateManager {
         updateObject(gameObject);
     }
 
+    /**
+     * Move given object vertically by given amount.
+     *
+     * @param objectId object to move
+     * @param amount   amount of move
+     */
     @Override
     public void moveVertical(String objectId, int amount) {
         GameObject gameObject = gameObjects.get(objectId);
@@ -47,6 +64,13 @@ public class StateManagerSP extends StateManager {
         updateObject(gameObject);
     }
 
+    /**
+     * Traverse all GameObjects and update their states in every game tick.
+     * <p>
+     * Executed in StateManager thread.
+     *
+     * @see Runnable#run()
+     */
     @Override
     public void run() {
 
@@ -154,6 +178,11 @@ public class StateManagerSP extends StateManager {
         }
     }
 
+    /**
+     * Create a bullet object.
+     *
+     * @param who owner of the bullet
+     */
     @Override
     public void shoot(GameObject who) {
 

@@ -2,6 +2,10 @@ package com.akson.invaders.client;
 
 import java.util.UUID;
 
+/**
+ * Main object of the game. All players, enemies, bullets etc. are represented by a {@link GameObject}.
+ * {@link Sprite} is the visible part of the {@link GameObject}.
+ */
 public class GameObject {
 
     private final String id;
