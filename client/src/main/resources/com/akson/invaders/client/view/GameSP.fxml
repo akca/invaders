@@ -36,7 +36,7 @@
                     <Font size="17.0"/>
                 </font>
             </Button>
-            <Label text="10" GridPane.columnIndex="1">
+            <Label fx:id="gameScore" text="0" GridPane.columnIndex="1">
                 <font>
                     <Font size="22.0"/>
                 </font>
@@ -58,5 +58,5 @@
             </Label>
         </children>
     </GridPane>
-    <Pane fx:id="gameFieldPane" minHeight="770" GridPane.rowIndex="1"/>
+    <Pane fx:id="gameFieldPane" minHeight="770" minWidth="600" GridPane.rowIndex="1"/>
 </GridPane>

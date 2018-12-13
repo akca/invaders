@@ -2,12 +2,17 @@ package com.akson.invaders.client.controller;
 
 import com.akson.invaders.client.*;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.Date;
@@ -15,17 +20,26 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.*;
 
-
+/**
+ * Controller for the single player game view.
+ */
+@Component
 public class GameSPController extends AbstractScreenController {
 
     private static final int PLAYER_SIZE = 40;
     private static final int ENEMY_SIZE = 30;
+    private static final Logger logger = LoggerFactory.getLogger(GameSPController.class);
 
     private final BooleanProperty upPressed = new SimpleBooleanProperty();
     private final BooleanProperty downPressed = new SimpleBooleanProperty();
     private final BooleanProperty rightPressed = new SimpleBooleanProperty();
     private final BooleanProperty leftPressed = new SimpleBooleanProperty();
     private final BooleanProperty spacePressed = new SimpleBooleanProperty();
+
+    private int level = 0;
+
+    @FXML
+    private Label gameScore;
 
     @FXML
     private Pane gameFieldPane;
@@ -44,8 +58,13 @@ public class GameSPController extends AbstractScreenController {
     @Override
     public void onDisplay() {
 
+        level = 0;
+
+        // create StateManager
         stateManager = new StateManagerSP();
         stateManager.setGameFieldPane(gameFieldPane);
+        stateManager.setGameScore(gameScore);
+        stateManager.setScreenController(this);
 
         GameObject playerObject = new GameObject(GameObjectType.LOCAL_PLAYER, 300, 700);
 
@@ -59,6 +78,7 @@ public class GameSPController extends AbstractScreenController {
         stateManager.addObject(playerObject);
         stateManager.setPlayerObject(playerObject);
 
+        // register keypress actions
         screenManager.getRootScene().setOnKeyPressed(e -> {
             if (e.getCode() == UP) {
                 upPressed.set(true);
@@ -95,6 +115,13 @@ public class GameSPController extends AbstractScreenController {
             }
         });
 
+        /*
+         * Handle keypress events.
+         * Important thing is, key events are limited for specific time intervals.
+         * In 30 ms, player can only move ONCE in horizontal direction.
+         * In 30 ms, player can only move ONCE in vertical direction.
+         * In 200 ms, player can only shoot ONCE.
+         */
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -115,7 +142,6 @@ public class GameSPController extends AbstractScreenController {
                         stateManager.moveHorizontal(playerObject.getId(), 6);
                         latestHorizontalMoveTime = currentTime;
                     }
-
                 }
 
                 if (upPressed.get() && playerObject.getY() > 0) {
@@ -135,6 +161,7 @@ public class GameSPController extends AbstractScreenController {
                         latestVerticalMoveTime = currentTime;
                     }
                 }
+
                 if (spacePressed.get()) {
 
                     Date currentTime = new Date();
@@ -143,12 +170,11 @@ public class GameSPController extends AbstractScreenController {
                         stateManager.shoot(playerObject);
                         latestShootTime = currentTime;
                     }
-
                 }
             }
         };
 
-        createAliens();
+        nextLevel(0);
         stateManager.start();
         timer.start();
     }
@@ -167,11 +193,25 @@ public class GameSPController extends AbstractScreenController {
         gameFieldPane.getChildren().clear();
     }
 
-    private void createAliens() {
+    /**
+     * Create aliens for given level.
+     * Number of the aliens are calculated using this formula: (level * 2) + 5
+     * Then, aliens are evenly distributed along the screen.
+     *
+     * @param level level number (0-indexed)
+     */
+    private void createAliens(int level) {
 
-        for (int i = 0; i < 5; i++) {
+        int enemyCount = (level * 2) + 5;
+        int margin = 60;
 
-            GameObject alienObject = new GameObject(GameObjectType.ENEMY, 90 + i * 100, 100);
+        for (int i = 0; i < enemyCount; i++) {
+
+            // evenly distribute enemies
+            int xLocation = margin
+                    + i * (((int) gameFieldPane.getMinWidth() - (ENEMY_SIZE + margin) - margin) / (enemyCount - 1));
+
+            GameObject alienObject = new GameObject(GameObjectType.ENEMY, xLocation, 100);
 
             Sprite alienSprite = new Sprite(alienObject,
                     alienObject.getX(),
@@ -187,10 +227,47 @@ public class GameSPController extends AbstractScreenController {
 
     @FXML
     private void goToMainScreen(ActionEvent event) {
-        screenManager.setScreen(InvadersApplication.mainScreenID);
+        screenManager.setScreen(ScreenEnum.MAIN);
     }
 
-    public Pane getGameFieldPane() {
-        return gameFieldPane;
+    /**
+     * Player died. Go to "wasted" i.e. ScreenEnum.GAME_DEAD_END_SP screen.
+     *
+     * @param time elapsed time.
+     */
+    public void gameDeadEnd(double time) {
+        Platform.runLater(() -> {
+            screenManager.setScreen(ScreenEnum.GAME_DEAD_END_SP);
+            DeadEndGameSPController endController = (DeadEndGameSPController) screenManager.getCurrentScreen();
+
+            endController.setScoreLabel(time);
+        });
+    }
+
+    /**
+     * Player killed all enemies. Go to "End" i.e. ScreenEnum.GAME_END_SP screen.
+     *
+     * @param time elapsed time.
+     */
+    private void gameEnd(double time) {
+        Platform.runLater(() -> {
+            screenManager.setScreen(ScreenEnum.GAME_END_SP);
+            EndGameSPController endController = (EndGameSPController) screenManager.getCurrentScreen();
+
+            endController.sendHighScore(time);
+        });
+    }
+
+    /**
+     * Go to next level, if current level is not the final one. Otherwise, finish the game.
+     *
+     * @param time elapsed time
+     */
+    public void nextLevel(double time) {
+        if (level <= 2) {
+            createAliens(level++);
+        } else {
+            gameEnd(time);
+        }
     }
 }

@@ -23,12 +23,12 @@ public class Score {
     private User user;
 
     @Column(name = "SCORE", nullable = false)
-    private long score;
+    private double score;
 
     public Score() {
     }
 
-    public Score(User user, long score, OffsetDateTime date) {
+    public Score(User user, double score, OffsetDateTime date) {
         this.user = user;
         this.score = score;
         this.date = date;
@@ -63,11 +63,11 @@ public class Score {
         this.user = user;
     }
 
-    public long getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(long score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

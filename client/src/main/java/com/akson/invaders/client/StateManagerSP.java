@@ -1,15 +1,25 @@
 package com.akson.invaders.client;
 
+import com.akson.invaders.client.controller.GameSPController;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class StateManagerSP extends StateManager {
 
     private final int bulletWidth = 5;
     private final int bulletHeight = 15;
+    private Date gameStartTime;
 
+    /**
+     * Add a GameObject to game.
+     *
+     * @param object GameObject to add
+     */
     @Override
     public void addObject(GameObject object) {
         gameObjects.put(object.getId(), object);
@@ -40,11 +50,18 @@ public class StateManagerSP extends StateManager {
     @Override
     public void run() {
 
+        gameStartTime = new Date();
         running.set(true);
 
         while (running.get()) {
 
+            // Calculate elapsedSeconds and show it in UI
+            double elapsedSeconds = (new Date().getTime() - gameStartTime.getTime()) / 1000d;
+            Platform.runLater(() -> gameScore.setText(String.valueOf(elapsedSeconds)));
+
+            // traverse all GameObjects and update their states
             gameObjects.values().forEach(gameObject -> {
+
                 switch (gameObject.getType()) {
 
                     case ENEMY_BULLET:
@@ -60,6 +77,14 @@ public class StateManagerSP extends StateManager {
 
                             if (playerObject.getHealth() <= 0) {
                                 playerObject.setDead(true);
+
+                                logger.info("You are dead!");
+                                running.set(false);
+
+                                // player dead, go to game end screen
+                                ((GameSPController) screenController).gameDeadEnd(elapsedSeconds);
+
+                                return;
                             }
 
                             gameObject.setDead(true);
@@ -80,6 +105,13 @@ public class StateManagerSP extends StateManager {
 
                                         if (enemy.getHealth() <= 0) {
                                             enemy.setDead(true);
+
+                                            List<GameObject> enemies = filterObjectsByType(GameObjectType.ENEMY);
+
+                                            // if no alive enemies left, go to next level!
+                                            if (enemies.isEmpty()) {
+                                                ((GameSPController) screenController).nextLevel(elapsedSeconds);
+                                            }
                                         }
 
                                         gameObject.setDead(true);
@@ -90,7 +122,8 @@ public class StateManagerSP extends StateManager {
 
                     case ENEMY:
 
-                        if (Math.random() < 0.01) {
+                        // call shoot() by enemies randomly
+                        if (Math.random() < 0.02) {
                             shoot(gameObject);
                         }
 
@@ -98,7 +131,7 @@ public class StateManagerSP extends StateManager {
                 }
             });
 
-            /* remove dead or out of the screen objects */
+            /* remove dead or out-of-the-screen objects */
             Iterator<GameObject> it = gameObjects.values().iterator();
 
             while (it.hasNext()) {

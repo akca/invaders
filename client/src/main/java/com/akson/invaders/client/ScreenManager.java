@@ -6,35 +6,57 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
-public class ScreenManager extends StackPane {
+/**
+ * Holds screens, manages screen state, provides screen switching functionality.
+ */
+@Component
+public class ScreenManager extends StackPane implements ApplicationContextAware {
 
     private static final Logger logger = LoggerFactory.getLogger(ScreenManager.class);
-    private final HashMap<String, AbstractScreenController> screens = new HashMap<>();
+
+    /**
+     * Holds all loaded screens.
+     */
+    private final HashMap<ScreenEnum, AbstractScreenController> screens = new HashMap<>();
+
     private Scene rootScene;
     private AbstractScreenController currentScreen;
+    private ApplicationContext applicationContext;
 
     /**
      * Add the screen to the collection.
      *
-     * @param name       Name of the screen
+     * @param screenEnum Enum of the screen
      * @param controller Screen screenManager to be added
      */
-    private void addScreen(String name, AbstractScreenController controller) {
-        screens.put(name, controller);
+    private void addScreen(ScreenEnum screenEnum, AbstractScreenController controller) {
+        screens.put(screenEnum, controller);
     }
 
-    public void loadScreen(String name, String resource) {
+    /**
+     * Load FXML file, initialize it, and store it inside the screens map.
+     *
+     * @param screenEnum enum of the screen that is loaded
+     * @param resource   path of the FXML file
+     */
+    public void loadScreen(ScreenEnum screenEnum, String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
+            loader.setControllerFactory(applicationContext::getBean);
+
             Parent loadScreen = loader.load();
 
             AbstractScreenController screenController = loader.getController();
             screenController.setScreenManager(this);
             screenController.setParentNode(loadScreen);
-            addScreen(name, screenController);
+            addScreen(screenEnum, screenController);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -43,11 +65,11 @@ public class ScreenManager extends StackPane {
     /**
      * Change current screen to the screen with given name.
      *
-     * @param name name of the screen to be switched.
+     * @param screenEnum enum of the screen to be switched.
      */
-    public void setScreen(final String name) {
+    public void setScreen(ScreenEnum screenEnum) {
 
-        AbstractScreenController newScreen = screens.get(name);
+        AbstractScreenController newScreen = screens.get(screenEnum);
 
         if (newScreen != null) {
 
@@ -63,7 +85,7 @@ public class ScreenManager extends StackPane {
             currentScreen.onDisplay();
 
         } else {
-            logger.error("Screen with name {} is not available!", name);
+            logger.error("Screen with name {} is not available!", screenEnum);
         }
     }
 
@@ -73,6 +95,15 @@ public class ScreenManager extends StackPane {
 
     public void setRootScene(Scene rootScene) {
         this.rootScene = rootScene;
+    }
+
+    public AbstractScreenController getCurrentScreen() {
+        return currentScreen;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
 
